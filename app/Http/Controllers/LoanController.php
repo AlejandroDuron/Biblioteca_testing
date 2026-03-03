@@ -25,6 +25,9 @@ class LoanController extends Controller
      */
     public function store(StoreLoanRequest $request)
     {
+        // Validación de seguridad
+        $this->authorize('create', Loan::class);
+
         $book = Book::find($request->input('book_id'));
 
         if (! $book->is_available || $book->available_copies === 0) {
