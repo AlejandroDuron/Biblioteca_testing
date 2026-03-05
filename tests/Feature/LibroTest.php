@@ -30,7 +30,11 @@ it('paginates correctly', function () {
     $user = User::factory()->create();
     Book::factory()->count(20)->create();
 
+<<<<<<< Updated upstream
     $response = $this->actingAs($user)->get('/api/v1/books?page=1');
+=======
+    $response = $this->actingAs($user)->get('/api/v1/books');
+>>>>>>> Stashed changes
     $response->assertStatus(200);
 
     expect($response->json())->toHaveCount(15);
@@ -39,7 +43,7 @@ it('paginates correctly', function () {
 it('respects filter by title', function () {
     $user = User::factory()->create();
     Book::factory()->create(['title' => 'La Odisea']);
-    Book::factory()->create(['title' => 'PHP Básico']);
+    Book::factory()->create(['title' => 'Homero']);
 
     $response = $this->actingAs($user)->get('/api/v1/books?title=Odisea');
 
