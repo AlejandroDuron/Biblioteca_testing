@@ -30,11 +30,8 @@ it('paginates correctly', function () {
     $user = User::factory()->create();
     Book::factory()->count(20)->create();
 
-<<<<<<< Updated upstream
-    $response = $this->actingAs($user)->get('/api/v1/books?page=1');
-=======
+
     $response = $this->actingAs($user)->get('/api/v1/books');
->>>>>>> Stashed changes
     $response->assertStatus(200);
 
     expect($response->json())->toHaveCount(15);
