@@ -30,7 +30,11 @@ it('paginates correctly', function () {
     $user = User::factory()->create();
     Book::factory()->count(20)->create();
 
+<<<<<<< HEAD
     $response = $this->actingAs($user)->get('/api/v1/books');
+=======
+    $response = $this->actingAs($user)->get('/api/v1/books?page=1');
+>>>>>>> 7601b18126fa53c59b02458a8d73e10c1870e404
     $response->assertStatus(200);
 
     expect($response->json())->toHaveCount(15);
