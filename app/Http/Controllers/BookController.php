@@ -39,6 +39,8 @@ class BookController extends Controller
             'title' => 'required|string',
             'ISBN' => 'required|string',
             'is_available' => 'boolean',
+            'description'      => 'required|string',     
+            'total_copies'     => 'required|integer', 
             'available_copies' => 'integer'
         ]);
 
