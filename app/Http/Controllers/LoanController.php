@@ -15,6 +15,8 @@ class LoanController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Loan::class);
+
         $loans = Loan::with('book')->paginate();
 
         return response()->json(LoanResource::collection($loans));
