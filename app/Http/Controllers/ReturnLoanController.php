@@ -11,8 +11,10 @@ class ReturnLoanController extends Controller
     /**
      * Handle the incoming request.
      */
+
     public function __invoke(Request $request, Loan $loan)
     {
+        $this->authorize('update', $loan);
 
         if (! is_null($loan->return_at)) {
             return response()->json(['message' => 'Loan already returned'], 422);
