@@ -16,7 +16,7 @@ beforeEach(function () {
 
 // Listar libros
 
-it('returns only existing records', closure: function () {
+it('returns only existing records', function () {
     $user = User::factory()->create();
     Book::factory()->count(3)->create();
 
