@@ -7,6 +7,5 @@ it('a loan cannot be made without the requester’s name', function () {
     $rules = $request->rules();
 
     // Verificar
-    expect($rules)->toHaveKey('requester_name')
-        ->and($rules['requester_name'])->toContain('string', 'required', 'max:255');
+    expect($rules['requester_name'])->toEqual(['string', 'required', 'max:255']);
 });
