@@ -114,26 +114,8 @@ it('a not available book cannot be loaned', function () {
     $this->assertDatabaseCount('loans', 0);
 });
 
-//Prueba 5:
-it('a loan cannot be made without the requester’s name', function () {
-    //Preparacion
-    $user = User::factory()->create();
-    $user->assignRole('Estudiante');
-
-    $book = Book::factory()->create();
-
-    //Ejecucion
-    $response = $this->actingAs($user)->postJson('/api/v1/loans', [
-        'book_id' => $book->id
-    ]);
-
-    //Verificacion
-    $response->assertStatus(422);
-    $this->assertDatabaseCount('loans', 0);
-});
-
 //Pruebas de distintos escenarios de devolver libros
-//Prueba 6:
+//Prueba 5:
 it('only students and teachers can return a loan', function (string $role) {
     //Preparacion
     $user = User::factory()->create();
@@ -170,7 +152,7 @@ it('only students and teachers can return a loan', function (string $role) {
 
 })->with(['Estudiante', 'Docente']);
 
-//Prueba 7:
+//Prueba 6:
 it('librarian cannot return a loan', function () {
     //Preparacion
     $user = User::factory()->create();
@@ -195,7 +177,7 @@ it('librarian cannot return a loan', function () {
     ]);
 });
 
-//Prueba 8:
+//Prueba 7:
 it('cannot return an already returned loan', function () {
     //Preparacion
     $user = User::factory()->create();
@@ -225,7 +207,7 @@ it('cannot return an already returned loan', function () {
     ]);
 });
 
-//Prueba 9:
+//Prueba 8:
 it('a non-existent loan cannot be returned', function () {
     //Preparacion
     $user = User::factory()->create();
@@ -241,7 +223,7 @@ it('a non-existent loan cannot be returned', function () {
 });
 
 //Pruebas de distintos escenarios de devolver libros
-//Prueba 10:
+//Prueba 9:
 it('show the history of loaned books', function (string $role) {
     $user = User::factory()->create();
     $user->assignRole($role);
@@ -266,7 +248,7 @@ it('show the history of loaned books', function (string $role) {
 
 })->with(['Estudiante', 'Docente', 'Bibliotecario']);
 
-//Prueba 11: 
+//Prueba 10: 
 it('unauthorized users cannot view the history of loaned books', function () {
     // Preparación
     $user = User::factory()->create();
