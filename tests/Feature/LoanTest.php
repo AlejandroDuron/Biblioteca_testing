@@ -47,6 +47,11 @@ it('only students and teachers can borrow a book', function (string $role) {
         'is_available' => true,
     ]);
 
+    $response->assertJsonFragment([
+        'book_id' => $book->id,
+        'requester_name' => $user->name,
+    ]);
+
 })->with(['Estudiante', 'Docente']);
 
 //Prueba 2:
@@ -158,6 +163,11 @@ it('only students and teachers can return a loan', function (string $role) {
         'is_available' => true,
     ]);
 
+    $response->assertJsonFragment([
+        'id' => $loan->id,
+        'requester_name' => 'Juan Martinez'
+    ]);
+
 })->with(['Estudiante', 'Docente']);
 
 //Prueba 7:
@@ -210,6 +220,7 @@ it('cannot return an already returned loan', function () {
 
     $this->assertDatabaseHas('loans', [
         'id' => $loan->id,
+        'requester_name' => 'Maria Guevara',
         'return_at' => '2026-03-01 15:30:45'
     ]);
 });
@@ -240,7 +251,7 @@ it('show the history of loaned books', function (string $role) {
     $loan = Loan::create([
         'book_id' => $book->id,
         'requester_name' => 'Ana Fernandez',
-        'return_at' => now()
+        'return_at' => '2026-02-01 15:30:45'
     ]);
 
     $response = $this->actingAs($user)->get('/api/v1/loans');
@@ -249,7 +260,8 @@ it('show the history of loaned books', function (string $role) {
 
     $response->assertJsonFragment([
         'id' => $loan->id,
-        'requester_name' => 'Ana Fernandez'
+        'requester_name' => 'Ana Fernandez',
+        'return_at' => '2026-02-01 15:30:45'
     ]);
 
 })->with(['Estudiante', 'Docente', 'Bibliotecario']);
