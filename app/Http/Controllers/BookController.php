@@ -37,7 +37,7 @@ class BookController extends Controller
         
         $validated = $request->validate([
             'title' => 'required|string',
-            'ISBN' => 'required|string',
+            'ISBN' => 'required|string|unique:books,ISBN',
             'is_available' => 'boolean',
             'description'      => 'required|string',     
             'total_copies'     => 'required|integer', 

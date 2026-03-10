@@ -88,7 +88,7 @@ it('returns 404 when book does not exist', function () {
     $response->assertStatus(404);
 });
 
-// 
+
 // Crear libro
 
 it('creates book with valid data', function () {
@@ -153,6 +153,41 @@ it('unauthorized users cannot create book', function () {
     ]);
 
     $response->assertStatus(403);
+});
+
+it('fails when ISBN is duplicated', function () {
+    $bibliotecario = User::factory()->create();
+    $bibliotecario->assignRole('Bibliotecario');
+
+    Book::factory()->create(['ISBN' => '1234567890123']);
+
+    $response = $this->actingAs($bibliotecario)
+                     ->withHeaders(['Accept' => 'application/json'])
+                     ->post('/api/v1/books', [
+                         'title'            => 'Otro Libro',
+                         'ISBN'             => '1234567890123',
+                         'description'      => 'Una descripción',
+                         'total_copies'     => 5,
+                         'available_copies' => 3,
+                     ]);
+
+    $response->assertStatus(422); 
+});
+
+it('fails when required fields are missing', function () {
+    $bibliotecario = User::factory()->create();
+    $bibliotecario->assignRole('Bibliotecario');
+
+    $response = $this->actingAs($bibliotecario)
+                     ->withHeaders(['Accept' => 'application/json'])
+                     ->post('/api/v1/books', [
+                         'description'      => 'Una descripción',
+                         'total_copies'     => 5,
+                         'available_copies' => 3,
+                     ]);
+
+    $response->assertStatus(422)
+             ->assertJsonValidationErrors(['title', 'ISBN']);
 });
 
 // Actualizar libro

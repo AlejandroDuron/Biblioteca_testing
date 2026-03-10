@@ -30,7 +30,7 @@ it('can log in', function () {
 });
 
 //Prueba 2:
-it('it cannot log in with invalid password', function () {
+it('cannot log in with invalid password', function () {
     // Preparacion
     $user = User::factory()->create([
         'password' => bcrypt('test123'),
@@ -53,7 +53,7 @@ it('it cannot log in with invalid password', function () {
 });
 
 //Prueba 3:
-it('it cannot log in with invalid email', function () {
+it('cannot log in with invalid email', function () {
     //Ejecucion
     $response = $this->post('/api/v1/login', [
         'email' => 'emailincorrecto@correo.com',
@@ -93,7 +93,7 @@ it('unauthenticated users cannot log out', function () {
 
 //Pruebas de distintos escenarios de mostrar el perfil del usuario
 //Prueba 6:
-it('it shows user profile', function () {
+it('shows user profile', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get('/api/v1/profile');
