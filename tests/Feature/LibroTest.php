@@ -164,9 +164,9 @@ it('fails when ISBN is duplicated', function () {
     $response = $this->actingAs($bibliotecario)
                      ->withHeaders(['Accept' => 'application/json'])
                      ->post('/api/v1/books', [
-                         'title'            => 'Otro Libro',
+                         'title'            => 'Dune',
                          'ISBN'             => '1234567890123',
-                         'description'      => 'Una descripción',
+                         'description'      => 'bla bla bla',
                          'total_copies'     => 5,
                          'available_copies' => 3,
                      ]);
@@ -181,7 +181,7 @@ it('fails when required fields are missing', function () {
     $response = $this->actingAs($bibliotecario)
                      ->withHeaders(['Accept' => 'application/json'])
                      ->post('/api/v1/books', [
-                         'description'      => 'Una descripción',
+                         'description'      => 'bla bla vla',
                          'total_copies'     => 5,
                          'available_copies' => 3,
                      ]);
